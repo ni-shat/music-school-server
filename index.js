@@ -10,9 +10,9 @@ app.use(express.json());
 
 
 app.get('/', (req, res) => {
-    res.send('boss is running')
+    res.send('music server is running')
 })
 
 app.listen(port, () => {
-    console.log(`bistro boss is running on ${port}`);
+    console.log(`music server is running on ${port}`);
 })
