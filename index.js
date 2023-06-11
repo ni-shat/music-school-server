@@ -26,15 +26,32 @@ async function run() {
     // Connect the client to the server	(optional starting in v4.7)
     await client.connect();
 
+    const usersCollection = client.db("musicSchool").collection("users");
     const popularClassesCollection = client.db("musicSchool").collection("popularClasses");
     const popularInstructorsCollection = client.db("musicSchool").collection("musicInstructor");
 
 
     //user related apis
+    app.post('/users', async (req, res) => {
+      const user = req.body;
+      const query = { email: user.email }
+      const existingUser = await usersCollection.findOne(query);
+
+      if (existingUser) {
+        return res.send({ message: 'user already exists' })
+      }
+
+      const result = await usersCollection.insertOne(user);
+      res.send(result);
+    });
+
+
+    //popular classes related apis
     app.get('/popular-classes', async (req, res) => {
       const result = await popularClassesCollection.find().toArray();
       res.send(result); 
     })
+
 
     //instructors related apis
     app.get('/popular-instructors', async (req, res) => {
