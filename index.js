@@ -27,11 +27,18 @@ async function run() {
     await client.connect();
 
     const popularClassesCollection = client.db("musicSchool").collection("popularClasses");
+    const popularInstructorsCollection = client.db("musicSchool").collection("musicInstructor");
 
 
     //user related apis
     app.get('/popular-classes', async (req, res) => {
       const result = await popularClassesCollection.find().toArray();
+      res.send(result); 
+    })
+
+    //instructors related apis
+    app.get('/popular-instructors', async (req, res) => {
+      const result = await popularInstructorsCollection.find().toArray();
       res.send(result); 
     })
 
