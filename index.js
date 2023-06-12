@@ -28,7 +28,8 @@ async function run() {
 
     const usersCollection = client.db("musicSchool").collection("users");
     const popularClassesCollection = client.db("musicSchool").collection("popularClasses");
-    const popularInstructorsCollection = client.db("musicSchool").collection("musicInstructor");
+    const popularInstructorsCollection = client.db("musicSchool").collection("musicInstructor"); //popular instructors
+    const instructorsCollection = client.db("musicSchool").collection("instructors");
 
 
     //user related apis
@@ -54,6 +55,11 @@ async function run() {
 
 
     //instructors related apis
+    app.get('/instructors', async (req, res) => {
+      const result = await instructorsCollection.find().toArray();
+      res.send(result); 
+    })
+
     app.get('/popular-instructors', async (req, res) => {
       const result = await popularInstructorsCollection.find().toArray();
       res.send(result); 
