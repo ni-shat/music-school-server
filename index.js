@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 require('dotenv').config();
+const jwt = require('jsonwebtoken');
 const port = process.env.PORT || 5000;
 
 //middleware
@@ -35,6 +36,11 @@ async function run() {
 
 
     //user related apis
+    app.get('/users', async (req, res) => {
+      const result = await usersCollection.find().toArray();
+      res.send(result);
+    });
+
     app.post('/users', async (req, res) => {
       const user = req.body;
       const query = { email: user.email }
@@ -48,18 +54,33 @@ async function run() {
       res.send(result);
     });
 
+    app.patch('/users/admin/:id', async (req, res) => {
+      const id = req.params.id;
+      console.log(id);
+      const filter = { _id: new ObjectId(id) };
+      const updateDoc = {
+        $set: {
+          role: 'admin'
+        },
+      };
+
+      const result = await usersCollection.updateOne(filter, updateDoc);
+      res.send(result);
+
+    })
+
 
     //popular classes related apis
     app.get('/popular-classes', async (req, res) => {
       const result = await popularClassesCollection.find().toArray();
-      res.send(result); 
+      res.send(result);
     })
 
 
     //instructors related apis
     app.get('/all-instructors', async (req, res) => {
       const result = await instructorsCollection.find().toArray();
-      res.send(result); 
+      res.send(result);
     })
 
     app.get('/instructors', async (req, res) => {
@@ -67,23 +88,42 @@ async function run() {
       const limit = 5;
       const skip = page * limit;
       const result = await instructorsCollection.find().skip(skip).limit(limit).toArray();
-      res.send(result); 
+      res.send(result);
     })
 
     app.get('/popular-instructors', async (req, res) => {
       const result = await popularInstructorsCollection.find().toArray();
-      res.send(result); 
+      res.send(result);
     })
 
     //student related api
     app.get('/selected-classes', async (req, res) => {
-      const result = await selectedClassCollection.find().toArray();
-      res.send(result); 
+      const email = req.query.email;
+      if (!email) {
+        res.send([]);
+      }
+      const query = { email: email };
+      const result = await selectedClassCollection.find(query).toArray();
+      res.send(result);
     })
 
     app.get('/enrolled-classes', async (req, res) => {
       const result = await enrolledClassCollection.find().toArray();
-      res.send(result); 
+      res.send(result);
+    })
+
+    app.delete('/selected-classes/:id', async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) }
+      const result = await selectedClassCollection.deleteOne(query);
+      res.send(result);
+    })
+
+    //jwt
+    app.post('/jwt', (req, res) => {
+      const user = req.body;
+      const token = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1h' })
+      res.send({ token })
     })
 
 
@@ -100,9 +140,9 @@ run().catch(console.dir);
 
 
 app.get('/', (req, res) => {
-    res.send('music server is running')
+  res.send('music server is running')
 })
 
 app.listen(port, () => {
-    console.log(`music server is running on ${port}`);
+  console.log(`music server is running on ${port}`);
 })
