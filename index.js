@@ -31,6 +31,7 @@ async function run() {
     const popularInstructorsCollection = client.db("musicSchool").collection("musicInstructor"); //popular instructors
     const instructorsCollection = client.db("musicSchool").collection("instructors");
     const selectedClassCollection = client.db("musicSchool").collection("selectedClassOfStdnts");
+    const enrolledClassCollection = client.db("musicSchool").collection("enrolledClassOfStdnts");
 
 
     //user related apis
@@ -77,6 +78,11 @@ async function run() {
     //student related api
     app.get('/selected-classes', async (req, res) => {
       const result = await selectedClassCollection.find().toArray();
+      res.send(result); 
+    })
+
+    app.get('/enrolled-classes', async (req, res) => {
+      const result = await enrolledClassCollection.find().toArray();
       res.send(result); 
     })
 

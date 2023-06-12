@@ -1,0 +1,26 @@
+[
+    {
+        "title": "Pop Singing Workshop",
+        "instructor": "Emily Davis",
+        "schedule": "Tuesdays and Thursdays, 5:00 PM - 6:30 PM",
+        "price": "$55/hour",
+        "total_students": 20,
+        "image": "https://i.ibb.co/2qZsqR8/pexels-photo-6671592.jpg"
+    },
+    {
+        "title": "Vocal Technique and Performance",
+        "instructor": "Michael Thompson",
+        "schedule": "Mondays, 6:30 PM - 8:00 PM",
+        "price": "$50/hour",
+        "total_students": 25,
+        "image": "https://i.ibb.co/H4CW6Ct/learn-to-sing.jpg"
+    },
+    {
+        "title": "Pop Singing Techniques",
+        "instructor": "Sophia Davis",
+        "schedule": "Fridays, 6:00 PM - 7:30 PM",
+        "price": "$45/hour",
+        "total_students": 8,
+        "image": "https://example.com/class3.jpg"
+    }
+]
