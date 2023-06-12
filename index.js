@@ -30,6 +30,7 @@ async function run() {
     const popularClassesCollection = client.db("musicSchool").collection("popularClasses");
     const popularInstructorsCollection = client.db("musicSchool").collection("musicInstructor"); //popular instructors
     const instructorsCollection = client.db("musicSchool").collection("instructors");
+    const selectedClassCollection = client.db("musicSchool").collection("selectedClassOfStdnts");
 
 
     //user related apis
@@ -55,13 +56,27 @@ async function run() {
 
 
     //instructors related apis
-    app.get('/instructors', async (req, res) => {
+    app.get('/all-instructors', async (req, res) => {
       const result = await instructorsCollection.find().toArray();
+      res.send(result); 
+    })
+
+    app.get('/instructors', async (req, res) => {
+      const page = parseInt(req.query.page) || 0;
+      const limit = 5;
+      const skip = page * limit;
+      const result = await instructorsCollection.find().skip(skip).limit(limit).toArray();
       res.send(result); 
     })
 
     app.get('/popular-instructors', async (req, res) => {
       const result = await popularInstructorsCollection.find().toArray();
+      res.send(result); 
+    })
+
+    //student related api
+    app.get('/selected-classes', async (req, res) => {
+      const result = await selectedClassCollection.find().toArray();
       res.send(result); 
     })
 
