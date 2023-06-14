@@ -405,6 +405,18 @@ async function run() {
     }) 
 
 
+    app.post('/payment-history', verifyJWT, async (req, res) => {
+
+      const email = req.query.email;
+      const query = { 
+        email: email
+      }
+      const result = await classCollection.find(query).toArray();
+      res.send(result);
+      // res.send({ insertResult, deleteResult });
+    }) 
+
+
    
 
 
