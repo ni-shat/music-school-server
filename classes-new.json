@@ -1,0 +1,82 @@
+[
+    {
+        "title": "Pop Singing Techniques",
+        "instructor": "Sophia Davis",
+        "schedule": "Fridays, 6:00 PM - 7:30 PM",
+        "price": "$45/hour",
+        "total_enrolled": 3,
+        "status": "approved",
+        "image": "https://example.com/class3.jpg"
+    },
+    {
+        "title": "Jazz Music Ensemble",
+        "instructor": "Sarah Johnson",
+        "schedule": "Wednesdays and Fridays, 7:00 PM - 8:30 PM",
+        "price": "$55/hour",
+        "total_enrolled": 5,
+        "status": "approved",
+        "image": "https://i.ibb.co/3yTHm8Z/news-campus-jazz-festival-highschool-invitational-story.jpg"
+    },
+    {
+        "title": "Jazz Music Ensemble",
+        "instructor": "Sarah Johnson",
+        "schedule": "Wednesdays and Fridays, 7:00 PM - 8:30 PM",
+        "price": "$55/hour",
+        "total_enrolled": 1,
+        "status": "approved",
+        "image": "https://i.ibb.co/3yTHm8Z/news-campus-jazz-festival-highschool-invitational-story.jpg"
+    },
+    {
+        "title": "Jazz Music Ensemble",
+        "instructor": "Sarah Johnson",
+        "schedule": "Wednesdays and Fridays, 7:00 PM - 8:30 PM",
+        "price": "$55/hour",
+        "total_enrolled": 0,
+        "status": "pending",
+        "image": "https://i.ibb.co/3yTHm8Z/news-campus-jazz-festival-highschool-invitational-story.jpg"
+    },
+    {
+        "title": "Pop Singing Workshop",
+        "instructor": "Emily Davis",
+        "schedule": "Tuesdays and Thursdays, 5:00 PM - 6:30 PM",
+        "price": "$55/hour",
+        "total_enrolled": 0,
+        "status": "pending",
+        "image": "https://i.ibb.co/2qZsqR8/pexels-photo-6671592.jpg"
+    },
+    {
+        "title": "Vocal Technique and Performance",
+        "instructor": "Michael Thompson",
+        "schedule": "Mondays, 6:30 PM - 8:00 PM",
+        "price": "$50/hour",
+        "total_enrolled": 3,
+        "status": "approved",
+        "image": "https://i.ibb.co/H4CW6Ct/learn-to-sing.jpg"
+    },
+    {
+        "title": "Classical Vocal Training",
+        "instructor": "John Smith",
+        "schedule": "Mondays and Wednesdays, 6:00 PM - 7:30 PM",
+        "price": "$50/hour",
+        "total_enrolled": 3,
+        "status": "approved",
+        "image": "https://i.ibb.co/wKwtjDw/istockphoto-1350037767-640x640.jpg"
+    },
+    {
+        "title": "Classical Music",
+        "instructor": "Sarah Johnson",
+        "schedule": "Mondays and Wednesdays, 6:00 PM - 7:30 PM",
+        "price": "$60/hour",
+        "total_enrolled": 0,
+        "image": "https://i.ibb.co/n11TF0q/Classical-Music-violin.jpg"
+    },
+    {
+        "title": "Music Theory Fundamentals",
+        "instructor": "David Miller",
+        "schedule": "Saturdays, 10:00 AM - 11:30 AM",
+        "price": "$50/hour",
+        "status": "denied",
+        "image": "https://i.ibb.co/vQsCsVr/best-music-course-class-certification-training-online.jpg",
+        "feedback": "You details were not clear. Check again."
+    },
+]
