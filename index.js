@@ -48,6 +48,7 @@ async function run() {
     const usersCollection = client.db("musicSchool").collection("users");
     const classCollection = client.db("musicSchool").collection("classes");
     const selectedClassCollection = client.db("musicSchool").collection("selectedClasses");
+    const paymentCollection = client.db("musicSchool").collection("payments");
 
 
     const popularClassesCollection = client.db("musicSchool").collection("popularClasses");
@@ -332,7 +333,17 @@ async function run() {
 
       const result = await selectedClassCollection.insertOne(saveclass);
       res.send(result);
-    })  //HERE
+    })  
+
+    app.get('/payment-selected-classes/:id', async (req, res) => { // get one selected class for payment history
+     
+      const id = req.params.id;
+      const query = { 
+        _id: new ObjectId(id) 
+      }
+      const result = await selectedClassCollection.findOne(query);
+      res.send(result);
+    })  
 
     app.get('/all-selected-classes', async (req, res) => { // all selected class of a student
       const email = req.query.email;
@@ -355,6 +366,21 @@ async function run() {
     })
 
     // create payment intent
+    app.post('/create-payment-intent', verifyJWT, async (req, res) => {
+      const { price } = req.body;
+      const amount = parseInt(price * 100);
+      const paymentIntent = await stripe.paymentIntents.create({
+        amount: amount,
+        currency: 'usd',
+        payment_method_types: ['card']
+      });
+
+      res.send({
+        clientSecret: paymentIntent.client_secret
+      })
+    })
+
+    //post payment data 
     app.post('/create-payment-intent', verifyJWT, async (req, res) => {
       const { price } = req.body;
       const amount = parseInt(price * 100);
