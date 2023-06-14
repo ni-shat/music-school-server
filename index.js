@@ -296,7 +296,14 @@ async function run() {
     })
 
     app.get('/enrolled-classes', async (req, res) => {
-      const result = await enrolledClassCollection.find().toArray();
+      const email = req.query.email;
+      const query = {
+        $and: [
+          { status: 'enrolled' },
+          { userEmail: email },
+        ]
+      }
+      const result = await selectedClassCollection.find(query).toArray();
       res.send(result);
     })
 
@@ -381,27 +388,24 @@ async function run() {
     })
 
     //post payment data 
-    app.post('/create-payment-intent', verifyJWT, async (req, res) => {
-      const { price } = req.body;
-      const amount = parseInt(price * 100);
-      const paymentIntent = await stripe.paymentIntents.create({
-        amount: amount,
-        currency: 'usd',
-        payment_method_types: ['card']
-      });
+    app.post('/payment-transaction/:id', verifyJWT, async (req, res) => {
+      const payment = req.body;
+      const id = req.params.id;
+      const insertResult = await paymentCollection.insertOne(payment);
 
-      res.send({
-        clientSecret: paymentIntent.client_secret
-      })
-    })
+      const filter = { _id: new ObjectId(id) };
+      const updateDoc = {
+        $set: {
+          status: 'enrolled'
+        }
+      };
+      const result = await selectedClassCollection.updateOne(filter, updateDoc);
+      res.send(result);
+      // res.send({ insertResult, deleteResult });
+    }) 
 
 
-    // app.delete('/selected-classes/:id', async (req, res) => {
-    //   const id = req.params.id;
-    //   const query = { _id: new ObjectId(id) }
-    //   const result = await selectedClassCollection.deleteOne(query);
-    //   res.send(result);
-    // })
+   
 
 
     /*-------------all approved classes---------
