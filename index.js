@@ -405,16 +405,30 @@ async function run() {
     }) 
 
 
-    app.post('/payment-history', verifyJWT, async (req, res) => {
+    app.get('/payment-history', verifyJWT, async (req, res) => {
 
       const email = req.query.email;
       const query = { 
         email: email
       }
-      const result = await classCollection.find(query).toArray();
+      const result = await paymentCollection.find(query).toArray();
       res.send(result);
-      // res.send({ insertResult, deleteResult });
+      // here
     }) 
+
+
+    app.get('/popular-classes', async (req, res) => {
+
+      
+      const query = { 
+        total_enrolled: email
+      }
+      const result = await paymentCollection.find(query).toArray();
+      res.send(result);
+      // imp
+    }) 
+
+
 
 
    
@@ -440,6 +454,23 @@ async function run() {
       const updateDoc = {
         $set: {
           availableSeats: updatedSeats
+        }
+      };
+      const result = await classCollection.updateOne(filter, updateDoc);
+      res.send(result);
+    })  //HERE
+
+    app.patch('/all-approved-classes/total-enrolled/:id', async (req, res) => {
+      const id = req.params.id;
+      console.log(id);
+      const filter = { _id: new ObjectId(id) };
+
+      const classDoc = await classCollection.findOne(filter);
+      const updatedTotal = parseInt(classDoc.total_enrolled) + 1;
+
+      const updateDoc = {
+        $set: {
+          total_enrolled: updatedTotal
         }
       };
       const result = await classCollection.updateOne(filter, updateDoc);
