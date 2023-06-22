@@ -43,7 +43,7 @@ const client = new MongoClient(uri, {
 async function run() {
   try {
     // Connect the client to the server	(optional starting in v4.7)
-    await client.connect();
+    // await client.connect();
 
     const usersCollection = client.db("musicSchool").collection("users");
     const classCollection = client.db("musicSchool").collection("classes");
@@ -53,9 +53,7 @@ async function run() {
 
     const popularClassesCollection = client.db("musicSchool").collection("popularClasses");
     const popularInstructorsCollection = client.db("musicSchool").collection("musicInstructor"); //popular instructors
-    const instructorsCollection = client.db("musicSchool").collection("instructors");
-    // const selectedClassCollection = client.db("musicSchool").collection("selectedClassOfStdnts");
-    const enrolledClassCollection = client.db("musicSchool").collection("enrolledClassOfStdnts");
+  
 
     //verify admin
     const verifyAdmin = async (req, res, next) => {
@@ -221,10 +219,12 @@ async function run() {
 
     // total classes by an instructor
     app.get('/instructors-total-classes', async (req, res) => {
+      console.log("inside total class", req.query.email)
       const email = req.query.email;
+      // console.log('email', email)
       const query = { email: email }
       const result = await classCollection.find(query).toArray();
-      res.send(result);
+      // res.send(result);
     }) //TODO
 
     //secure instructor route
